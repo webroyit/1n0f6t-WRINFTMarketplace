@@ -13,4 +13,9 @@ contract NFTContract is ERC1155 {
         _mint(msg.sender, ARTWORK, 1, "");
         _mint(msg.sender, PHOTO, 2, "");
     }
+
+    // Mint Tokens
+    function mint(address account, uint256 id, uint256amount) public {
+        _mint(account, id, amount, "");
+    }
 }
