@@ -10,7 +10,8 @@ contract NFTContract is ERC1155, Ownable {
     uint256 public constant ARTWORK = 0;
     uint256 public constant PHOTO = 1;
 
-    constructor() ERC1155("url") {
+    // Add URL to ERC1155 contract
+    constructor() ERC1155("https://000e155m12kundcrkeh72ckooc5c5uvp6ie5dmnhdphiclcdfbjpijg.siasky.net/{id}.json") {
         // '_mint()' is from ERC1155 openzeppelin contract
         _mint(msg.sender, ARTWORK, 1, "");
         _mint(msg.sender, PHOTO, 2, "");
