@@ -10,7 +10,10 @@ async function initializeApp(){
     if(!currentUser){
         currentUser = await Moralis.Web3.authenticate();
     }
-    console.log(currentUser);
+    
+    const options = { address: "0xbcbD0331394bcCEFbfC93C9355d362C798180d0e", chain: "rinkeby"}
+    let NFTs = await Moralis.Web3API.token.getAllTokenIds(options);
+    console.log(NFTs);
 }
 
 initializeApp();
