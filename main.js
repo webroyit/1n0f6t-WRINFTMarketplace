@@ -36,6 +36,31 @@ async function initializeApp(){
     let NFTs = await Moralis.Web3API.token.getAllTokenIds(options);
     let NFTWithMetadata = await fetchMetadata(NFTs.result);
     console.log(NFTWithMetadata);
+    renderInventory(NFTWithMetadata);
+}
+
+function renderInventory(NFTs){
+    const parent = document.getElementById("app");
+
+    for(let index = 0; index < NFTs.length; index++){
+        const nft = NFTs[index];
+        let htmlString = `
+            <div class="card">
+                <img class="card-img-top" src="${nft.metadata.image}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">${nft.metadata.name}</h5>
+                    <p class="card-text">${nft.metadata.description}</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        `;
+
+        let col = document.createElement("div");
+        col.className = "col col-md-4";
+        col.innerHTML = htmlString;
+        parent.appendChild(col);
+    }
+    
 }
 
 initializeApp();
