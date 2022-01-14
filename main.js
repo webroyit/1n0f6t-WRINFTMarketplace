@@ -12,6 +12,8 @@ function fetchMetadata(NFTs){
          // Call Moralis cloud function -> Static JSON file
          fetch("https://okraypjofzst.usemoralis.com:2053/server/functions/getNFT?_ApplicationId=yOGw5F1DxY2eA9ByFSlvoze95s9woOjLcHzxgm9Y&nftId=" + id)
             .then(res => res.json())
+            // Convert string into object
+            .then(res => JSON.parse(res.result))
             .then(res => console.log(res));
     }
 }
