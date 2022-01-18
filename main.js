@@ -3,6 +3,7 @@ console.log("It works");
 // Connect to Moralis server
 Moralis.initialize("yOGw5F1DxY2eA9ByFSlvoze95s9woOjLcHzxgm9Y");
 Moralis.serverURL = "https://okraypjofzst.usemoralis.com:2053/server";
+const CONTRACT_ADDRESS = "0xbcbD0331394bcCEFbfC93C9355d362C798180d0e";
 
 // Fetch metadata from URL
 function fetchMetadata(NFTs){
@@ -18,7 +19,14 @@ function fetchMetadata(NFTs){
             // Convert string into object
             .then(res => JSON.parse(res.result))
             .then(res => {nft.metadata = res})
-            .then(() => {return nft;}))
+            .then(res => {
+                // Return an array of owners
+                const options = { address: CONTRACT_ADDRESS, token_id: id, chain: "rinkeby"};
+                return Moralis.Web3API.token.getTokenIdOwners(options);
+            })
+            .then((res) => {
+                console.log(res);
+            }))
     }
 
     return Promise.all(promises);
@@ -32,7 +40,7 @@ async function initializeApp(){
     }
     
     // Get NFTs data
-    const options = { address: "0xbcbD0331394bcCEFbfC93C9355d362C798180d0e", chain: "rinkeby"}
+    const options = { address: CONTRACT_ADDRESS, chain: "rinkeby"}
     let NFTs = await Moralis.Web3API.token.getAllTokenIds(options);
     let NFTWithMetadata = await fetchMetadata(NFTs.result);
     console.log(NFTWithMetadata);
