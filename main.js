@@ -25,7 +25,11 @@ function fetchMetadata(NFTs){
                 return Moralis.Web3API.token.getTokenIdOwners(options);
             })
             .then((res) => {
-                console.log(res);
+                nft.owners = [];
+                res.result.forEach(element => {
+                    nft.owners.push(element.ownersOf);
+                })
+                return nft;
             }))
     }
 
@@ -58,6 +62,8 @@ function renderInventory(NFTs){
                 <div class="card-body">
                     <h5 class="card-title">${nft.metadata.name}</h5>
                     <p class="card-text">${nft.metadata.description}</p>
+                    <p class="card-text">Amount: ${nft.amount}</p>
+                    <p class="card-text">Number of Owners: ${nft.owners.length}</p>
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
