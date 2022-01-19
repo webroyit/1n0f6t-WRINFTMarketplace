@@ -16,6 +16,16 @@ async function initializeApp(){
     const urlParams = new URLSearchParams(window.location.search);
     const nftId = urlParams.get("nftId");
     console.log(nftId);
+
+    // Set the token input field
+    document.getElementById("token_id_input").value = nftId;
+}
+
+async function mint(){
+    // Smart Contract expect string, not number
+    let tokenId = parseInt(document.getElementById("token_id_input"));
+    let address = document.getElementById("address_input");
+    let amount = parseInt(document.getElementById("amount_input"));
 }
 
 initializeApp();
