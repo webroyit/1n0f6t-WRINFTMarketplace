@@ -2,6 +2,7 @@
 Moralis.initialize("yOGw5F1DxY2eA9ByFSlvoze95s9woOjLcHzxgm9Y");
 Moralis.serverURL = "https://okraypjofzst.usemoralis.com:2053/server";
 const CONTRACT_ADDRESS = "0xbcbD0331394bcCEFbfC93C9355d362C798180d0e";
+let web3;
 
 // Check if the user is login
 async function initializeApp(){
@@ -10,6 +11,10 @@ async function initializeApp(){
         // Redirect
         window.location.pathname = "/index.html";
     }
+
+    web3 = await Moralis.Web3.enable();     // Use web3
+    let accounts = await web3.eth.getAccounts();        // Get address from Login with Moralis
+    console.log(accounts);
     
     // Get NFT data
     // Get the params from the URL
@@ -17,8 +22,9 @@ async function initializeApp(){
     const nftId = urlParams.get("nftId");
     console.log(nftId);
 
-    // Set the token input field
+    // Set the value of the input fields
     document.getElementById("token_id_input").value = nftId;
+    document.getElementById("address_input").value = accounts[0];
 }
 
 async function mint(){

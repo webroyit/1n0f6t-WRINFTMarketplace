@@ -28,3 +28,4 @@ Moralis.Cloud.define("getNFT", async (request) => {
 
 ## Notes
 - Metadata must follow this standard. https://eips.ethereum.org/EIPS/eip-1155#metadata
+- Moralis has Web3 library built in
