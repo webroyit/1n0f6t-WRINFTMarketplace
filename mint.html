@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="generator" content="Hugo 0.84.0">
-    <title>Login</title>
+    <title>Mint</title>
 
     <!-- Bootstrap core CSS and JS-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -26,8 +26,26 @@
       </div>
     </div>
     <div class="container">
-      <div id="app" class="row"></div>
+      <div id="app" class="row">
+        <div class="col col-md-12">
+          <div>
+            <label>Token Id</label>
+            <input id="token_id_input" type="number">
+          </div>
+          <div>
+            <label>Amount</label>
+            <input id="amount_input" type="number">
+          </div>
+          <div>
+            <label>Address</label>
+            <input id="address_input" type="text">
+          </div>
+          <div>
+            <button id="submit_mint" class="btn btn-primary">Mint</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <script src="main.js"></script>
+    <script src="mint.js"></script>
   </body>
 </html>
