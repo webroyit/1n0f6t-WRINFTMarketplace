@@ -38,7 +38,12 @@ async function mint(){
 
     // Call contract method mint
     const contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
-    contract.methods.mint(address, tokenId, amount).send({ from: accounts[0], value: 0});
+    contract.methods.mint(address, tokenId, amount).send({ from: accounts[0], value: 0})
+        // Getting receipt mean that the transaction was added to a block
+        .on("receipt", function(receipt){
+            console.log(receipt);
+            alert("Mint Done");
+        });
 }
 
 document.getElementById("submit_mint").onclick = mint;

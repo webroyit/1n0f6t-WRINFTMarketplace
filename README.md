@@ -30,3 +30,4 @@ Moralis.Cloud.define("getNFT", async (request) => {
 - Metadata must follow this standard. https://eips.ethereum.org/EIPS/eip-1155#metadata
 - Moralis has Web3 library built in
 - Contact ABI is the specification or interface of the smart contract.  It allows this website to know which functions are available and what parameters these functions accept
+- It will take few blocks for Moralis to get the updated blockchain after getting the transaction
