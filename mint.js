@@ -29,9 +29,18 @@ async function initializeApp(){
 
 async function mint(){
     // Smart Contract expect string, not number
-    let tokenId = parseInt(document.getElementById("token_id_input"));
-    let address = document.getElementById("address_input");
-    let amount = parseInt(document.getElementById("amount_input"));
+    let tokenId = parseInt(document.getElementById("token_id_input").value);
+    let address = document.getElementById("address_input").value;
+    let amount = parseInt(document.getElementById("amount_input").value);
+
+    const accounts = await web3.eth.getAccounts();
+    console.log("f")
+
+    // Call contract method mint
+    const contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
+    contract.methods.mint(address, tokenId, amount).send({ from: accounts[0], value: 0});
 }
+
+document.getElementById("submit_mint").onclick = mint;
 
 initializeApp();
