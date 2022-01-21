@@ -34,7 +34,6 @@ async function mint(){
     let amount = parseInt(document.getElementById("amount_input").value);
 
     const accounts = await web3.eth.getAccounts();
-    console.log("f")
 
     // Call contract method mint
     const contract = new web3.eth.Contract(contractAbi, CONTRACT_ADDRESS);
