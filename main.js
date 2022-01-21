@@ -5,6 +5,8 @@ Moralis.initialize("yOGw5F1DxY2eA9ByFSlvoze95s9woOjLcHzxgm9Y");
 Moralis.serverURL = "https://okraypjofzst.usemoralis.com:2053/server";
 const CONTRACT_ADDRESS = "0xbcbD0331394bcCEFbfC93C9355d362C798180d0e";
 
+let currentUser;
+
 // Fetch metadata from URL
 function fetchMetadata(NFTs){
     let promises = [];
@@ -38,7 +40,7 @@ function fetchMetadata(NFTs){
 
 // Check if the user is login
 async function initializeApp(){
-    let currentUser = Moralis.User.current();
+    currentUser = Moralis.User.current();
     if(!currentUser){
         currentUser = await Moralis.Web3.authenticate();
     }
@@ -48,10 +50,27 @@ async function initializeApp(){
     let NFTs = await Moralis.Web3API.token.getAllTokenIds(options);
     let NFTWithMetadata = await fetchMetadata(NFTs.result);
     console.log(NFTWithMetadata);
-    renderInventory(NFTWithMetadata);
+    let ownerData = await getOwnerData();
+    renderInventory(NFTWithMetadata, ownerData);
 }
 
-function renderInventory(NFTs){
+async function getOwnerData(){
+    // Get user ETH addresses from Moralis
+    let accounts = currentUser.get("accounts");
+
+    // Get NFT data by contract from Moralis
+    const options = { chain: "rinkeby", address: accounts[0], token_address: CONTRACT_ADDRESS };
+    return Moralis.Web3API.account.getNFTsForContract(options).then((data) => {
+        let result = data.result.reduce((object, currentElement) => {
+            object[currentElement.token_id] = currentElement.amount;
+            return object;
+        }, {})
+        console.log(result);
+        return result;
+    });
+}
+
+function renderInventory(NFTs, ownerData){
     const parent = document.getElementById("app");
 
     for(let index = 0; index < NFTs.length; index++){
@@ -64,6 +83,7 @@ function renderInventory(NFTs){
                     <p class="card-text">${nft.metadata.description}</p>
                     <p class="card-text">Amount: ${nft.amount}</p>
                     <p class="card-text">Number of Owners: ${nft.owners.length}</p>
+                    <p class="card-text">Your balance: ${ownerData[nft.token_id]}</p>
                     <a href="/mint.html?nftId=${nft.token_id}" class="btn btn-primary">Mint</a>
                     <a href="/transfer.html?nftId=${nft.token_id}" class="btn btn-primary">Transfer</a>
                 </div>
