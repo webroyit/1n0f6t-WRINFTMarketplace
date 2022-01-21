@@ -27,7 +27,7 @@ function fetchMetadata(NFTs){
             .then((res) => {
                 nft.owners = [];
                 res.result.forEach(element => {
-                    nft.owners.push(element.ownersOf);
+                    nft.owners.push(element.owner_of);
                 })
                 return nft;
             }))
