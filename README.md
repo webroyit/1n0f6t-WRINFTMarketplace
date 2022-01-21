@@ -1,4 +1,17 @@
 # WRI Marketplace
+NFT Marketplace. The template is from Moralis Web3 youtube channel.
+
+## What it does?
+- Login with Metamask using Moralis login
+- Mint ERC1155 tokens
+- Transfer ERC1155 tokens
+
+## Tools
+- HTML5
+- Bootrap5
+- Javascript
+- Moralis SDK
+- Solidity
 
 ## View Metadata on Open Sea
 - Go to https://opensea.io/get-listed
